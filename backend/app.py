@@ -1,17 +1,15 @@
-from flask import Flask, json, jsonify, request, redirect
+from flask import Flask, jsonify, request
+from werkzeug.datastructures import Headers
 from PartyClass import Party
 
 app = Flask(__name__)
 
-app.secret_key = "HTNPROJ"
-
-parties = {
-    "Liberal": Party("Liberal"),
-    "Conservative": Party("Conservative"),
-    "NDP": Party("NDP"),
-    "PPC": Party("PPC"),
-    "Green": Party("Green"),
-}
+liberal_party = Party("liberal")
+conservative_party = Party("conservative")
+ndp_party = Party("ndp")
+ppc_party = Party("ppc")
+green_party = Party("green")
+quebec_party = Party("quebec")
 
 @app.route('/api/search', methods=["GET", "POST"])
 def search():
@@ -19,24 +17,21 @@ def search():
     #required param
     query = request.args['query']
 
-    response = {
-
-        "liberal" : {
-            "summary" : "",
-            "relatedlinks": {
-                "linktoarticle": "",
-                "sentiment": ""
-            }
-        }
-    }
-
-
     #optional param
     if len((request.args).keys()) > 1:
 
         party = request.args['party']
     
-    return jsonify(response)
+    response = {
+        "liberal": liberal_party.responseformat,
+        "conservative": conservative_party.responseformat,
+        "ndp": ndp_party.responseformat,
+        "ppc": ppc_party.responseformat,
+        "green": green_party.responseformat,
+        "quebec": quebec_party.responseformat
+    }
+
+    return jsonify(response), 200
 
 # @app.route('/api/search/riding')
 # def ridingSearch():
