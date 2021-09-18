@@ -39,7 +39,7 @@ def get_liberal_info(query):
 def get_conservative_info(query):
     query = query.lower()
     url = 'https://www.conservative.ca/plan/'
-    sub_pages = ['jobs','accountability','mental-health','secure-the-country','economy']
+    sub_pages = ['jobs','accountability','mental-health','secure-the-country','economy','secure-the-environment']
     
     keys = get_synonyms(query)
     result = []
@@ -80,6 +80,7 @@ def get_synonyms(s):
     words[10] = ['liberal','trudeau','martin','chrétien','chretien']
     words[11] = ['conservative','harper','o\'tool',]
     words[12] = ['ndp','democrat','singh','mulcair','layton']
+    words[13] = ['pig','cow','chicken','sheep','goat','livestock','meat','steak','pork','animal']
     
     # if a keyword appears in the querry, return that keyword group
     for row in words:
