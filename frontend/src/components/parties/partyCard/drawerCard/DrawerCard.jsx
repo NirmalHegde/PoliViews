@@ -1,13 +1,13 @@
 import React from "react";
 import { LinkBox, LinkOverlay, Heading, Text, Badge } from "@chakra-ui/react";
 
-const DrawerCard = ({ badge, title, description, link }) => {
-  const badgeColor = {
-    neutral: "yellow",
-    positive: "green",
-    negative: "red",
-  };
+const BADGE_COLOR = {
+  neutral: "yellow",
+  positive: "green",
+  negative: "red",
+};
 
+const DrawerCard = ({ badge, title, description, link }) => {
   return (
     <LinkBox as="article" maxW="sm" p="5" borderWidth="1px" rounded="md">
       <Heading size="md" my="2">
@@ -18,7 +18,7 @@ const DrawerCard = ({ badge, title, description, link }) => {
       <Text>
         {description}
       </Text>
-      <Badge colorScheme={badgeColor[badge]}>{badge}</Badge>
+      <Badge colorScheme={BADGE_COLOR[badge]}>{badge}</Badge>
     </LinkBox>
   );
 };
