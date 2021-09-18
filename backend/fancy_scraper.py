@@ -6,6 +6,8 @@ import requests
 import re
 import urllib
 from time import sleep
+from tika import parser
+from itranslate import itranslate as itrans
 
 # Input: Search query string (ie: 'climate change')
 # Return: Array of strings, each string is an entire paragraph that contains relevant keyword
@@ -176,6 +178,29 @@ def check_page_greenparty(url, query, keys, result):
 
     for p in b: # loop through paragraphs
         p = p.get_text()
+        if query in p.lower(): # try search query in paragraph
+            result.append(p)
+        elif keys is not None:
+            for k in keys: # try each key in the paragraph
+                if k in p.lower():
+                    result.append(p)
+                    break
+        if len(result) > 3: # once we have enough results no need to continue
+            break
+
+# Scraper for blocquebecois.org
+# Input: Search query string (ie: 'pandemic')
+# Return: Array of strings, each string is an entire paragraph that contains relevant keyword
+def get_bloc_quebecois_info(query):
+    raw = parser.from_file('blocqc-Plateforme-2021-planche.pdf')['content'].strip() # Read from PDF file
+    raw = raw[raw.index('Une campagne électorale') : raw.index('dans les plus brefs délais.')+28]
+
+    keys = get_synonyms(query)
+    result = []
+    
+    splat = raw.split("\n\n") # split into paragraphs
+    for p in splat:
+        p = itrans(p, to_lang="en")
         if query in p.lower(): # try search query in paragraph
             result.append(p)
         elif keys is not None:
