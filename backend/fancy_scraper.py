@@ -34,6 +34,33 @@ def get_liberal_info(query):
     
     return result
 
+# Input: Search query string (ie: 'COVID-19')
+# Return: Array of strings, each string is an entire paragraph that contains relevant keyword
+def get_conservative_info(query):
+    query = query.lower()
+    url = 'https://www.conservative.ca/plan/'
+    sub_pages = ['jobs','accountability','mental-health','secure-the-country','economy']
+    
+    keys = get_synonyms(query)
+    result = []
+    
+    for sp in sub_pages: # loop through sub-pages
+        page = requests.get(url+sp+'/')
+        soup = BeautifulSoup(page.content, 'html.parser')
+        b = soup.select('body > main > div:nth-child(5) > section > div > div > div')[0].find_all('p')
+
+        for p in b: # loop through paragraphs
+            p = p.decode_contents().strip()
+            if query in p.lower(): # try search query in paragraph
+                result.append(p)
+            elif keys is not None:
+                for k in keys: # try each key in the paragraph
+                    if k in p.lower():
+                        result.append(p)
+                        break
+        
+    return result
+
 # Input: String with one or multiple keywords
 # Return: Array of strings, each string a single keyword relevant to input
 def get_synonyms(s):
