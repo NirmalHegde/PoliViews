@@ -110,6 +110,44 @@ def check_page_ndp(url, query, keys, result):
         if len(result) > 3: # once we have enough results no need to continue
             break
 
+# Scraper for peoplespartyofcanada.ca
+# Input: Search query string (ie: 'COVID-19')
+# Return: Array of strings, each string is an entire paragraph that contains relevant keyword
+def get_peoplesparty_info(query):
+    query = query.lower()
+    url = 'https://www.peoplespartyofcanada.ca/'
+    sub_pages = ['pipelines','indigenous-issues','internal-trade','housing','firearms','equalization','covid-health-measures','health-care','public-finance','global-warming-environment','freedom-of-expression','economy','veterans','canadian-identity','refugees','immigration','foreign-policy','supply-management']
+    
+    keys = get_synonyms(query)
+    result = []
+    
+    for sp in sub_pages: # first check via page titles
+        if sp in query or sp in keys:
+            check_page_conservative(url+sp, query, keys, result)
+        if len(result) > 0:
+            return result
+    
+    for sp in sub_pages: # loop through sub-pages
+        check_page_conservative(url+sp, query, keys, result)
+    return result
+
+def check_page_conservative(url, query, keys, result):
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    b = soup.select('#intro > div > div > div.col-md-8.platform')[0].find_all('p')
+
+    for p in b: # loop through paragraphs
+        p = p.decode_contents().strip()
+        if query in p.lower(): # try search query in paragraph
+            result.append(p)
+        elif keys is not None:
+            for k in keys: # try each key in the paragraph
+                if k in p.lower():
+                    result.append(p)
+                    break
+        if len(result) > 3: # once we have enough results no need to continue
+            break
+
 # Input: String with one or multiple keywords
 # Return: Array of strings, each string a single keyword relevant to input
 def get_synonyms(s):
