@@ -44,13 +44,62 @@ def get_conservative_info(query):
     keys = get_synonyms(query)
     result = []
     
+    for sp in sub_pages: # first check via page titles
+        if sp in query or sp in keys:
+            check_page_conservative(url+sp+'/', query, keys, result)
+        if len(result) > 0:
+            return result
+    
     for sp in sub_pages: # loop through sub-pages
-        page = requests.get(url+sp+'/')
-        soup = BeautifulSoup(page.content, 'html.parser')
-        b = soup.select('body > main > div:nth-child(5) > section > div > div > div')[0].find_all('p')
+        check_page_conservative(url+sp+'/', query, keys, result)
+    return result
 
-        for p in b: # loop through paragraphs
-            p = p.decode_contents().strip()
+def check_page_conservative(url, query, keys, result):
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    b = soup.select('body > main')[0].find_all('p')
+
+    for p in b: # loop through paragraphs
+        p = p.decode_contents().strip()
+        if query in p.lower(): # try search query in paragraph
+            result.append(p)
+        elif keys is not None:
+            for k in keys: # try each key in the paragraph
+                if k in p.lower():
+                    result.append(p)
+                    break
+        if len(result) > 3: # once we have enough results no need to continue
+            break
+
+# Input: Search query string (ie: 'COVID-19')
+# Return: Array of strings, each string is an entire paragraph that contains relevant keyword
+def get_ndp_info(query):
+    query = query.lower()
+    url = 'https://www.ndp.ca/'
+    sub_pages = ['commitments','affordability','economy','climate-action','better-care','reconciliation','communities','courage']
+    
+    keys = get_synonyms(query)
+    result = []
+    
+    for sp in sub_pages: # first check via page titles
+        if sp in query or sp in keys:
+            check_page_ndp(url+sp, query, keys, result)
+        if len(result) > 0:
+            return result
+    
+    for sp in sub_pages: # loop through sub-pages
+        check_page_ndp(url+sp, query, keys, result)
+        
+    return result
+
+def check_page_ndp(url, query, keys, result):
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    b = soup.select('.page--content-cached')[0].find_all('p')
+
+    for p in b: # loop through paragraphs
+        p = p.decode_contents().strip()
+        if '<p>' not in p:
             if query in p.lower(): # try search query in paragraph
                 result.append(p)
             elif keys is not None:
@@ -58,8 +107,8 @@ def get_conservative_info(query):
                     if k in p.lower():
                         result.append(p)
                         break
-        
-    return result
+        if len(result) > 3: # once we have enough results no need to continue
+            break
 
 # Input: String with one or multiple keywords
 # Return: Array of strings, each string a single keyword relevant to input
@@ -71,7 +120,7 @@ def get_synonyms(s):
     words[1] = ['housing','home','house','family']
     words[2] = ['economy','jobs','work','busines','finance','financial']
     words[3] = ['equal','diversity','diverse','equity','lgbtq']
-    words[4] = ['climate','pollution','nature','environment']
+    words[4] = ['climate','pollution','nature','environment','climate-action','climate-change','secure-the-environment','emission','carbon','polluter']
     words[5] = ['indigenous','reconciliation','colonialism']
     words[6] = ['justice','police','policing','policy','safe','safety']
     words[7] = ['fairness','growth','fiscal']
@@ -81,6 +130,7 @@ def get_synonyms(s):
     words[11] = ['conservative','harper','o\'tool',]
     words[12] = ['ndp','democrat','singh','mulcair','layton']
     words[13] = ['pig','cow','chicken','sheep','goat','livestock','meat','steak','pork','animal']
+    words[14] = ['medicine','medication','health care','doctor','hospital']
     
     # if a keyword appears in the querry, return that keyword group
     for row in words:
