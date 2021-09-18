@@ -123,15 +123,15 @@ def get_peoplesparty_info(query):
     
     for sp in sub_pages: # first check via page titles
         if sp in query or sp in keys:
-            check_page_conservative(url+sp, query, keys, result)
+            check_page_peoplesparty(url+sp, query, keys, result)
         if len(result) > 0:
             return result
     
     for sp in sub_pages: # loop through sub-pages
-        check_page_conservative(url+sp, query, keys, result)
+        check_page_peoplesparty(url+sp, query, keys, result)
     return result
 
-def check_page_conservative(url, query, keys, result):
+def check_page_peoplesparty(url, query, keys, result):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     b = soup.select('#intro > div > div > div.col-md-8.platform')[0].find_all('p')
