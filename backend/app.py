@@ -1,44 +1,53 @@
-from flask import Flask, jsonify, request
+from flask import Flask, json, jsonify, request, redirect
+from PartyClass import Party
 
 app = Flask(__name__)
 
-# def queryAnalyzer(query):
+app.secret_key = "HTNPROJ"
 
-#     political_info = {
-#         "justin treadeau": "liberal",
-#         "jagmeet singh": "ndp",
-#         "erin o'toole": "conservative",
-#     }
+parties = {
+    "Liberal": Party("Liberal"),
+    "Conservative": Party("Conservative"),
+    "NDP": Party("NDP"),
+    "PPC": Party("PPC"),
+    "Green": Party("Green"),
+}
 
-#     justin_keywords = ['justin', 'treadeau', 'justin treadeau', 'justintreadeau ']
-#     jagmeet_keywords = ['jagmeet', 'singh', 'jagmeet singh', 'jagmeetsingh']
-#     _keywords = ['erin', 'toole', "erin o' toole", 'erintoole ']
+@app.route('/api/search', methods=["GET", "POST"])
+def search():
 
+    #required param
+    query = request.args['query']
 
-
-
-#     for word in query:
-
-#         if political_info[word] 
-
-@app.route('/api/search/', methods=["GET", "POST"])
-def index():
-
-    query = request.args['query'] #what the user searches in the frontend
-
-    #body params
-    req_data = request.get_json()
-    party = req_data['Party']
-    candidate = req_data['Candidate']
-
-    #json output
     response = {
-        "query": query,
-        "party": party,
-        "candidate": candidate
+
+        "liberal" : {
+            "summary" : "",
+            "relatedlinks": {
+                "linktoarticle": "",
+                "sentiment": ""
+            }
+        }
     }
 
-    return jsonify(response), 200
+
+    #optional param
+    if len((request.args).keys()) > 1:
+
+        party = request.args['party']
+    
+    return jsonify(response)
+
+# @app.route('/api/search/riding')
+# def ridingSearch():
+
+#     postal_code = request.args['postalcode']
+
+#     query = 
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
