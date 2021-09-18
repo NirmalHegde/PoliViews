@@ -75,6 +75,8 @@ def get_synonyms(s):
     words[5] = ['indigenous','reconciliation','colonialism']
     words[6] = ['justice','police','policing','policy','safe','safety']
     words[7] = ['fairness','growth','fiscal']
+    words[8] = ['accountability','transparency','conflict of interest']
+    words[9] = ['mental health','suicide']
     
     # if a keyword appears in the querry, return that keyword group
     for row in words:
