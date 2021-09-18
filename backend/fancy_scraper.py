@@ -77,6 +77,9 @@ def get_synonyms(s):
     words[7] = ['fairness','growth','fiscal']
     words[8] = ['accountability','transparency','conflict of interest']
     words[9] = ['mental health','suicide']
+    words[10] = ['liberal','trudeau','martin','chrétien','chretien']
+    words[11] = ['conservative','harper','o\'tool',]
+    words[12] = ['ndp','democrat','singh','mulcair','layton']
     
     # if a keyword appears in the querry, return that keyword group
     for row in words:
