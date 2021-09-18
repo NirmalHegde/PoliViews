@@ -7,6 +7,8 @@ import re
 import urllib
 from time import sleep
 
+# Input: Search query string (ie: 'climate change')
+# Return: Array of strings, each string is an entire paragraph that contains relevant keyword
 def get_liberal_info(query):
     query = query.lower()
     url = 'https://liberal.ca/our-platform/'
@@ -32,6 +34,8 @@ def get_liberal_info(query):
     
     return result
 
+# Input: String with one or multiple keywords
+# Return: Array of strings, each string a single keyword relevant to input
 def get_synonyms(s):
     
     # wordbank for keywords
@@ -50,8 +54,3 @@ def get_synonyms(s):
         for i in words[row]:
             if i in s:
                 return words[row]
-
-results = get_liberal_info('climate change')
-for r in results:
-    print(r)
-    print()
