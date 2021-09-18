@@ -1,2 +1,2 @@
-# election-informinator
+# PoliViews
 HTN Proj
