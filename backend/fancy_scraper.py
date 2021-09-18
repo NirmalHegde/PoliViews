@@ -137,3 +137,18 @@ def get_synonyms(s):
         for i in words[row]:
             if i in s:
                 return words[row]
+
+# Input: Some kind of party identifier (ie: 'Trudeau', 'NDP')
+# Return: Name of party (ie: Input='Trudeau' --> Return='liberal')
+def get_party(s):
+    s.lower()
+    words[0] = ['liberal','trudeau','justin','libéral']
+    words[1] = ['conservative','o\'tool','erin']
+    words[2] = ['new democratic party','singh','jagmeet','ndp','democratic','démocratique','democratique']
+    words[3] = ['bloc québécois','québéc','quebec','blanchet','yves','françois']
+    words[4] = ['green','paul','annamie','vert']
+    
+    for i in words:
+        for w in words[i]:
+            if w in s:
+                return words[i][0] # first element is the name we'll be using
