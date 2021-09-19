@@ -2,6 +2,8 @@
 Test it out: https://poliviews.web.app/
 
 ![poliviews](https://user-images.githubusercontent.com/69891859/133920386-f98fbaf1-8362-471a-bbf9-1da004fa7222.png)
+![poliview more pic](https://user-images.githubusercontent.com/69891859/133920431-e3585473-a79e-4ad0-a202-168aa49952a9.png)
+
 
 
 ## Inspiration
