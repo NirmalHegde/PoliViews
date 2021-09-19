@@ -6,8 +6,11 @@ import requests
 import re
 import urllib
 from time import sleep
+import tika
+tika.initVM()
 from tika import parser
 from itranslate import itranslate as itrans
+from googlesearch import search
 
 # Input: Search query string (ie: 'climate change')
 # Return: Array of strings, each string is an entire paragraph that contains relevant keyword
