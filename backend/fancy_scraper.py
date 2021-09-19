@@ -251,22 +251,24 @@ def get_related_articles(query, party):
     urls = list(search(search_query, tld="com", num=5, stop=5, pause=2))
 
     for u in urls:
-        #print(u)
+        print(u)
         if '.pdf' in u:
-            continue
-        page = requests.get(u)
-        soup = BeautifulSoup(page.text, 'html.parser')
-        title = soup.find_all('title')
-        if title is not None and len(title) > 0:
-            title = title[0].decode_contents().strip()
-        image = soup.find_all('img')
-        if image is not None and len(image) > 0:
-            image = u[:u.index('/', 10)] + image[0].get('src')
+            pass
+
         else:
-            image = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Maple_Leaf.svg/600px-Maple_Leaf.svg.png'
-        result.append([u, title, image])
-        if len(result) == 3:
-            break
+            page = requests.get(u)
+            soup = BeautifulSoup(page.text, 'html.parser')
+            title = soup.find_all('title')
+            if title is not None and len(title) > 0:
+                title = title[0].decode_contents().strip()
+            image = soup.find_all('img')
+            if image is not None and len(image) > 0:
+                image = u[:u.index('/', 10)] + image[0].get('src')
+            else:
+                image = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Maple_Leaf.svg/600px-Maple_Leaf.svg.png'
+            result.append([u, title, image])
+            if len(result) == 3:
+                break
     return result
 
 # Input: String with one or multiple keywords
