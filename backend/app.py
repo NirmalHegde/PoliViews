@@ -30,7 +30,7 @@ def search():
     conservative_party.addSummary(summary.summarizer(
         fancy_scraper.get_conservative_info(query), query))
     ndp_party.addSummary(summary.summarizer(
-        fancy_scraper.get_ndp_info(query)), query)
+        fancy_scraper.get_ndp_info(query), query))
     green_party.addSummary(summary.summarizer(
         fancy_scraper.get_greenparty_info(query), query))
     ppc_party.addSummary(summary.summarizer(
