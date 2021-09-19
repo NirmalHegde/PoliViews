@@ -12,6 +12,7 @@ tika.initVM()
 from tika import parser
 from itranslate import itranslate as itrans
 from googlesearch import search
+from pathlib import Path
 
 # Scraper for liberal.ca
 # Input: Search query string (ie: 'climate change')
@@ -220,26 +221,11 @@ def check_page_greenparty(url, query, keys, result):
 # Input: Search query string (ie: 'pandemic')
 # Return: Array of strings, each string is an entire paragraph that contains relevant keyword
 def get_bloc_quebecois_info(query):
-    raw = parser.from_file('blocqc-Plateforme-2021-planche.pdf')['content'].strip() # Read from PDF file
-    raw = raw[raw.index('Une campagne électorale') : raw.index('dans les plus brefs délais.')+28]
 
     keys = get_synonyms(query)
     result = []
     
-    splitted = []
-    
-    for i in range(0, 13):
-        splitted.append(raw[5000*i : min(len(raw), 5000*(i+1))])
-    
-    #print(splitted[0])
-    translated = ''
-    
-    for s in splitted:
-        t = itrans(s, to_lang="en")
-        #print('.')
-        translated += t
-    
-    #print(translated)
+    translated = Path('bloc-quebec.txt').read_text()
     
     splat = translated.split("\n\n") # split into paragraphs
     
@@ -260,15 +246,29 @@ def get_bloc_quebecois_info(query):
 # Input: query and party as strings
 # Return: Array of arrays, each array looks like this [url, title, image_url]
 def get_related_articles(query, party):
+    search_query = party + ' party canada ' + query
     result = []
-    urls = list(search(party + ' ' + query, tld="co.in", num=3, stop=3, pause=2))
+    urls = list(search(search_query, tld="com", num=6, stop=6, pause=2))
 
     for u in urls:
-        page = requests.get(u)
-        soup = BeautifulSoup(page.text, 'html.parser')
-        title = soup.find_all('title')[0].decode_contents().strip()
-        image = u[:u.index('/', 10)] + soup.find_all('img')[0].get('src')
-        result.append([u, title, image])
+        print(u)
+        if '.pdf' in u or 'twitter' in u or 'facebook' in u or 'wikipedia' in u:
+            pass
+
+        else:
+            page = requests.get(u)
+            soup = BeautifulSoup(page.text, 'html.parser')
+            title = soup.find_all('title')
+            if title is not None and len(title) > 0:
+                title = title[0].decode_contents().strip()
+            image = soup.find_all('img')
+            if image is not None and len(image) > 0:
+                image = u[:u.index('/', 10)] + image[0].get('src')
+            else:
+                image = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Maple_Leaf.svg/600px-Maple_Leaf.svg.png'
+            result.append([u, title, image])
+            if len(result) == 3:
+                break
     return result
 
 # Input: String with one or multiple keywords
