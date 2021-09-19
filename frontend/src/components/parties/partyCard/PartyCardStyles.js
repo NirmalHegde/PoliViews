@@ -8,10 +8,11 @@ const partyCardStyles = {
     maxHeight: "14vh"
   },
   start: {
-    opacity: "0"
+    opacity: "0",
+    marginTop: "-10%"
   },
   end: {
-    transition: "2s",
+    transition: "1s",
     opacity: "1"
   }
 };
