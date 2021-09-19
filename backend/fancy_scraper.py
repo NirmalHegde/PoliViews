@@ -254,7 +254,9 @@ def get_related_articles(query, party):
         print(u)
         page = requests.get(u)
         soup = BeautifulSoup(page.text, 'html.parser')
-        title = soup.find_all('title')[0].decode_contents().strip()
+        title = soup.find_all('title')
+        if title is not None and len(title) > 0:
+            title = title[0].decode_contents().strip()
         image = soup.find_all('img')
         if image is not None and len(image) > 0:
             image = u[:u.index('/', 10)] + image[0].get('src')
