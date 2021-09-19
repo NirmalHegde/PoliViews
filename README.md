@@ -1,6 +1,9 @@
 # PoliViews
 Test it out: https://poliviews.web.app/
 
+![poliviews](https://user-images.githubusercontent.com/69891859/133920386-f98fbaf1-8362-471a-bbf9-1da004fa7222.png)
+
+
 ## Inspiration
 
 With the upcoming 2021 Federal Elections, our team felt no motivation to participate in voting as we were unable to find much unbiased data comparing the ideas and views of each party. We were constantly bombarded with the Liberals and Conservatives headlines, but we wanted to learn more. Therefore, we created an application which would summarize boring political documents and compare the different parties for us. PoliViews solved our problem in being uninterested in the upcoming election as it provided us with credible insights into the opinions of different parties, and essentially provided us with everything needed to make a solid decision on who should lead the country.
