@@ -38,3 +38,5 @@ class Party():
                 "sentiment": self.relatedlink['sentiment']
             }
         }
+
+        return self.responseformat
