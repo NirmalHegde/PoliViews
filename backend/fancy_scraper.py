@@ -254,9 +254,9 @@ def get_synonyms(s):
     words = {}
     words[0] = ['covid','pandemic','corona','virus','vaccine']
     words[1] = ['housing','home','house','family']
-    words[2] = ['economy','jobs','work','busines','finance','financial']
+    words[2] = ['economy','jobs','work','busines','finance','financial','tax']
     words[3] = ['equal','diversity','diverse','equity','lgbtq']
-    words[4] = ['climate','pollution','nature','environment','climate-action','climate-change','secure-the-environment','emission','carbon','polluter','green-future']
+    words[4] = ['climate','pollution','nature','environment','climate-action','climate-change','secure-the-environment','emission','carbon','polluter','green-future','pipeline']
     words[5] = ['indigenous','reconciliation','colonialism']
     words[6] = ['justice','police','policing','policy','safe','safety']
     words[7] = ['fairness','growth','fiscal']
@@ -268,6 +268,8 @@ def get_synonyms(s):
     words[13] = ['pig','cow','chicken','sheep','goat','livestock','meat','steak','pork','animal']
     words[14] = ['medicine','medication','health care','doctor','hospital']
     words[15] = ['education','school','teacher','teaching','tuition','college','university','student']
+    words[16] = ['abortion','pregnancy','pregnant','fetus','embryo','birth']
+    
     # if a keyword appears in the querry, return that keyword group
     for row in words:
         for i in words[row]:
