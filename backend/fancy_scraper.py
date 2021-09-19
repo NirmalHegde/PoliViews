@@ -246,14 +246,20 @@ def get_bloc_quebecois_info(query):
 # Input: query and party as strings
 # Return: Array of arrays, each array looks like this [url, title, image_url]
 def get_related_articles(query, party):
+    search_query = party + ' party canada ' + query
     result = []
-    urls = list(search(party + ' ' + query, tld="co.in", num=3, stop=3, pause=2))
+    urls = list(search(search_query, tld="com", num=3, stop=3, pause=2))
 
     for u in urls:
+        print(u)
         page = requests.get(u)
         soup = BeautifulSoup(page.text, 'html.parser')
         title = soup.find_all('title')[0].decode_contents().strip()
-        image = u[:u.index('/', 10)] + soup.find_all('img')[0].get('src')
+        image = soup.find_all('img')
+        if image is not None and len(image) > 0:
+            image = u[:u.index('/', 10)] + image[0].get('src')
+        else:
+            image = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Maple_Leaf.svg/600px-Maple_Leaf.svg.png'
         result.append([u, title, image])
     return result
 
