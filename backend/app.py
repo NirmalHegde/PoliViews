@@ -57,7 +57,7 @@ def relatedArticles():
     query = session.get('query')
 
     articles = fancy_scraper.get_related_articles(query, party)
-
+    
     links = []
     pictures = []
     titles = []
@@ -81,7 +81,22 @@ def relatedArticles():
     user_party = Party(party)
     user_party.addRelatedLink(links, sentiments, titles, pictures)
 
-    return jsonify(user_party.relatedlink), 200
+    response = {
+        party: [
+            {},
+            {},
+            {}
+        ]
+    }
+
+    i = 0 
+    for i in range(3):
+        response[party][i]['link'] = links[i]
+        response[party][i]['picture'] = pictures[i]
+        response[party][i]['title'] = titles[i]
+        response[party][i]['sentiment'] = sentiments[i]
+
+    return jsonify(response), 200
 
 
 if __name__ == "__main__":
