@@ -248,11 +248,11 @@ def get_bloc_quebecois_info(query):
 def get_related_articles(query, party):
     search_query = party + ' party canada ' + query
     result = []
-    urls = list(search(search_query, tld="com", num=5, stop=5, pause=2))
+    urls = list(search(search_query, tld="com", num=6, stop=6, pause=2))
 
     for u in urls:
         print(u)
-        if '.pdf' in u or 'twitter' in u or 'facebook' in u:
+        if '.pdf' in u or 'twitter' in u or 'facebook' in u or 'wikipedia':
             pass
 
         else:
