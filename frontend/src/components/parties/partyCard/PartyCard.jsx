@@ -46,7 +46,7 @@ const PartyCard = ({
     <div>
       <Box
         bg="#FFFFFF"
-        height="38vh"
+        maxH="38vh"
         minW="sm"
         p={4}
         borderRadius="lg"
@@ -75,7 +75,7 @@ const PartyCard = ({
             {!show && (
               <Stack>
                 {[...Array(6)].map((e, i) => (
-                  <Skeleton endColor={endColor} height="1rem" />
+                  <Skeleton key={i} endColor={endColor} height="1rem" />
                 ))}
               </Stack>
             )}

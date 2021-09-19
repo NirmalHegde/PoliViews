@@ -7,7 +7,7 @@ const InputBox = ({ retrieveInfo }) => {
 
   const handleSearch = () => {
     //search handler
-    if (value.trim() !== "" || value !== null) {
+    if (value.trim() !== "" && value !== null) {
       retrieveInfo(value);
     }
   }

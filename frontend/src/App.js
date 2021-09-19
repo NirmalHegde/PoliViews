@@ -24,7 +24,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-    setResults(["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]);
+    setResults(["Hello", "Hellonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "Hello", "Hello", "Hello", "Hello"]);
     setSearch(search);
     setShow(true);
   };
