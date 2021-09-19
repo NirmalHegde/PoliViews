@@ -1,14 +1,13 @@
 import requests
 
 
-def summarizer(array_of_paragraphs):
+def summarizer(array_of_paragraphs, query):
     url = "https://meaningcloud-summarization-v1.p.rapidapi.com/summarization-1.0"
-    
+
     text_to_analyze = ""
 
     if (len(array_of_paragraphs) == 0):
-        
-        return "This party does not have a view on this." 
+        return f"This party does not have a view on {query}."
 
     for paragraph in array_of_paragraphs:
         text_to_analyze = text_to_analyze + " " + paragraph
