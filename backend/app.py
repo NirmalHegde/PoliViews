@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 # from werkzeug.datastructures import Headers
 from PartyClass import Party
-import fancy_scraper 
+import fancy_scraper
 import summary
 from sentiment_analysis import sentiment_analysis
 
@@ -17,19 +17,26 @@ ppc_party = Party("people")
 green_party = Party("green")
 quebec_party = Party("quebec")
 
+
 @app.route('/api/search', methods=["GET", "POST"])
 def search():
 
-    #required param
+    # required param
     query = request.args['query']
     session['query'] = query
-    
-    liberal_party.addSummary(summary.summarizer(fancy_scraper.get_liberal_info(query)))
-    conservative_party.addSummary(summary.summarizer(fancy_scraper.get_conservative_info(query)))
-    ndp_party.addSummary(summary.summarizer(fancy_scraper.get_ndp_info(query)))
-    green_party.addSummary(summary.summarizer(fancy_scraper.get_greenparty_info(query)))
-    ppc_party.addSummary(summary.summarizer(fancy_scraper.get_peoplesparty_info(query)))
-    quebec_party.addSummary(summary.summarizer(fancy_scraper.get_bloc_quebecois_info(query)))
+
+    liberal_party.addSummary(summary.summarizer(
+        fancy_scraper.get_liberal_info(query), query))
+    conservative_party.addSummary(summary.summarizer(
+        fancy_scraper.get_conservative_info(query), query))
+    ndp_party.addSummary(summary.summarizer(
+        fancy_scraper.get_ndp_info(query)), query)
+    green_party.addSummary(summary.summarizer(
+        fancy_scraper.get_greenparty_info(query), query))
+    ppc_party.addSummary(summary.summarizer(
+        fancy_scraper.get_peoplesparty_info(query), query))
+    quebec_party.addSummary(summary.summarizer(
+        fancy_scraper.get_bloc_quebecois_info(query), query))
 
     response = {
         "liberal": liberal_party.summary,
@@ -41,6 +48,7 @@ def search():
     }
 
     return jsonify(response), 200
+
 
 @app.route('/api/related-articles')
 def relatedArticles():
@@ -54,7 +62,7 @@ def relatedArticles():
     pictures = []
     titles = []
     sentiments = []
-    
+
     for article in articles:
         links.append(article[0])
         titles.append(article[1])
@@ -63,7 +71,7 @@ def relatedArticles():
     for link in links:
         # Get summary of article
         s = summary.summarizer_url(link)
-        # Get sentiment analysis from summary or article 
+        # Get sentiment analysis from summary or article
         sentiment = sentiment_analysis(s)
         # Add sentiment to array
         sentiments.append(sentiment)
@@ -72,6 +80,7 @@ def relatedArticles():
     user_party.addRelatedLink(links, sentiments, titles, pictures)
 
     return jsonify(user_party.relatedlink), 200
+
 
 if __name__ == "__main__":
     app.run(debug=True)
