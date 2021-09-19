@@ -31,7 +31,7 @@ def summarizer(array_of_paragraphs):
     return json_response['summary']
 
 
-def summarizer_urls(article_url):
+def summarizer_url(article_url):
     url = "https://meaningcloud-summarization-v1.p.rapidapi.com/summarization-1.0"
 
     request_body = {
