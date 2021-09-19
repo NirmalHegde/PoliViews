@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import urllib
+import time
 from time import sleep
 import tika
 tika.initVM()
@@ -12,6 +13,7 @@ from tika import parser
 from itranslate import itranslate as itrans
 from googlesearch import search
 
+# Scraper for liberal.ca
 # Input: Search query string (ie: 'climate change')
 # Return: Array of strings, each string is an entire paragraph that contains relevant keyword
 def get_liberal_info(query):
@@ -39,9 +41,11 @@ def get_liberal_info(query):
     
     return result
 
+# Scraper for conservative.ca
 # Input: Search query string (ie: 'COVID-19')
 # Return: Array of strings, each string is an entire paragraph that contains relevant keyword
 def get_conservative_info(query):
+    start = time.time()
     query = query.lower()
     url = 'https://www.conservative.ca/plan/'
     sub_pages = ['jobs','accountability','mental-health','secure-the-country','economy','secure-the-environment']
@@ -53,10 +57,15 @@ def get_conservative_info(query):
         if sp in query or (keys is not None and sp in keys):
             check_page_conservative(url+sp+'/', query, keys, result)
         if len(result) > 0:
-            return result
+            break
     
     for sp in sub_pages: # loop through sub-pages
         check_page_conservative(url+sp+'/', query, keys, result)
+        if len(result) > 3: # once we have enough results no need to continue
+            break
+        if time.time() - start > 10:
+            break
+        
     return result
 
 def check_page_conservative(url, query, keys, result):
@@ -76,9 +85,11 @@ def check_page_conservative(url, query, keys, result):
         if len(result) > 3: # once we have enough results no need to continue
             break
 
+# Scraper for ndp.ca
 # Input: Search query string (ie: 'COVID-19')
 # Return: Array of strings, each string is an entire paragraph that contains relevant keyword
 def get_ndp_info(query):
+    start = time.time()
     query = query.lower()
     url = 'https://www.ndp.ca/'
     sub_pages = ['commitments','affordability','economy','climate-action','better-care','reconciliation','communities','courage']
@@ -90,10 +101,14 @@ def get_ndp_info(query):
         if sp in query or (keys is not None and sp in keys):
             check_page_ndp(url+sp, query, keys, result)
         if len(result) > 0:
-            return result
+            break
     
     for sp in sub_pages: # loop through sub-pages
         check_page_ndp(url+sp, query, keys, result)
+        if len(result) > 3: # once we have enough results no need to continue
+            break
+        if time.time() - start > 10:
+            break
         
     return result
 
@@ -119,6 +134,7 @@ def check_page_ndp(url, query, keys, result):
 # Input: Search query string (ie: 'COVID-19')
 # Return: Array of strings, each string is an entire paragraph that contains relevant keyword
 def get_peoplesparty_info(query):
+    start = time.time()
     query = query.lower()
     url = 'https://www.peoplespartyofcanada.ca/'
     sub_pages = ['pipelines','indigenous-issues','internal-trade','housing','firearms','equalization','covid-health-measures','health-care','public-finance','global-warming-environment','freedom-of-expression','economy','veterans','canadian-identity','refugees','immigration','foreign-policy','supply-management']
@@ -130,10 +146,14 @@ def get_peoplesparty_info(query):
         if sp in query or (keys is not None and sp in keys):
             check_page_peoplesparty(url+sp, query, keys, result)
         if len(result) > 0:
-            return result
+            break
     
     for sp in sub_pages: # loop through sub-pages
         check_page_peoplesparty(url+sp, query, keys, result)
+        if len(result) > 3: # once we have enough results no need to continue
+            break
+        if time.time() - start > 10:
+            break
     return result
 
 def check_page_peoplesparty(url, query, keys, result):
@@ -157,6 +177,7 @@ def check_page_peoplesparty(url, query, keys, result):
 # Input: Search query string (ie: 'COVID-19')
 # Return: Array of strings, each string is an entire paragraph that contains relevant keyword
 def get_greenparty_info(query):
+    start = time.time()
     query = query.lower()
     url = 'https://www.greenparty.ca/en/platform/'
     sub_pages = ['message-from-leader','green-future','life-with-dignity','just-society']
@@ -168,10 +189,14 @@ def get_greenparty_info(query):
         if sp in query or (keys is not None and sp in keys):
             check_page_greenparty(url+sp, query, keys, result)
         if len(result) > 0:
-            return result
+            break
     
     for sp in sub_pages: # loop through sub-pages
         check_page_greenparty(url+sp, query, keys, result)
+        if len(result) > 3: # once we have enough results no need to continue
+            break
+        if time.time() - start > 10:
+            break
     return result
 
 def check_page_greenparty(url, query, keys, result):
