@@ -1,18 +1,25 @@
 # PoliViews
 Test it out: https://poliviews.web.app/
 
-![poliviews](https://user-images.githubusercontent.com/69891859/133920386-f98fbaf1-8362-471a-bbf9-1da004fa7222.png)
-![poliview more pic](https://user-images.githubusercontent.com/69891859/133920431-e3585473-a79e-4ad0-a202-168aa49952a9.png)
-![Screenshot 2021-09-19 041734](https://user-images.githubusercontent.com/69891859/133920519-0b004837-1806-4883-add4-7e84d28ec127.png)
-
-
 ## Inspiration
 
 With the upcoming 2021 Federal Elections, our team felt no motivation to participate in voting as we were unable to find much unbiased data comparing the ideas and views of each party. We were constantly bombarded with the Liberals and Conservatives headlines, but we wanted to learn more. Therefore, we created an application which would summarize boring political documents and compare the different parties for us. PoliViews solved our problem in being uninterested in the upcoming election as it provided us with credible insights into the opinions of different parties, and essentially provided us with everything needed to make a solid decision on who should lead the country.
 
 ## What it does
 
-PoliViews is your one-stop-shop to learn all about the views of each Canadian political party. Simply enter any political topic you are curious to learn more about (for example: vaccine passports). The articles we scrape from Google are summarized into just 2-3 sentences using NLP which outline the views of each major Canadian political party. Want to learn even more? Feel free to click "see similar articles" to find related articles as well their sentiment analysis.  We chose to include a sentiment analysis based on an article we recently came across: [link](https://www.nature.com/articles/s41599-019-0224-y.pdf) which outlines that misinformation is significantly more likely to make readers feel negative emotions. 
+PoliViews is your one-stop-shop to learn all about the views of each Canadian political party. Simply enter any political topic you are curious to learn more about (for example: vaccine passports). The articles we scrape from Google are summarized into just 2-3 sentences using NLP which outline the views of each major Canadian political party. Want to learn even more? Feel free to click "see similar articles" to find related articles as well their sentiment analysis.  We chose to include a sentiment analysis based on an article we recently came across: [link](https://www.nature.com/articles/s41599-019-0224-y.pdf) which outlines that misinformation is significantly more likely to make readers feel negative emotions.
+
+## Samples
+
+### Search any topic!
+![poliviews](https://user-images.githubusercontent.com/69891859/133920386-f98fbaf1-8362-471a-bbf9-1da004fa7222.png)
+
+### Get views from all main leaders!
+![poliview more pic](https://user-images.githubusercontent.com/69891859/133920431-e3585473-a79e-4ad0-a202-168aa49952a9.png)
+
+
+### Find related articles to learn more about specific topics!
+![Screenshot 2021-09-19 041734](https://user-images.githubusercontent.com/69891859/133920519-0b004837-1806-4883-add4-7e84d28ec127.png)
 
 ## How we built it
 
