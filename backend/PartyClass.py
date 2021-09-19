@@ -6,11 +6,10 @@ class Party():
         self.name = name
         self.summary = ""
         self.relatedlink = {
-            "link": None,
-            "sentiment": None,
-            "title": None,
-            "summary":None,
-            "picture":None 
+            "link": [],
+            "sentiment": [],
+            "title": [],
+            "picture": [] 
         }
         self.responseformat = {}
         
@@ -18,12 +17,11 @@ class Party():
 
         self.summary = text
 
-    def addRelatedLink(self, link, sentiment, title, summary, picture):
+    def addRelatedLink(self, link, sentiment, title, picture):
         
         self.relatedlink["link"] = link
         self.relatedlink["sentiment"] = sentiment
         self.relatedlink["title"] = title
-        self.relatedlink['summary'] = summary
         self.relatedlink['picture'] = picture
 
     def formatResponse(self):
