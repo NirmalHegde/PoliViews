@@ -3,6 +3,8 @@ from flask_cors import CORS
 from werkzeug.datastructures import Headers
 from PartyClass import Party
 import fancy_scraper 
+import summary
+import sentiment_analysis
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -13,11 +15,6 @@ ndp_party = Party("ndp")
 ppc_party = Party("ppc")
 green_party = Party("green")
 quebec_party = Party("quebec")
-
-def output_analyzer(party, query):
-
-    sentences = fancy_scraper.get_liberal_info(query)
-    
 
 @app.route('/api/search', methods=["GET", "POST"])
 def search():
@@ -30,16 +27,22 @@ def search():
 
         party = request.args['party']
     
+
+    liberal_party.addSummary(summary.summarizer(fancy_scraper.get_liberal_info(query)))
+    conservative_party.addSummary(summary.summarizer(fancy_scraper.get_conservative_info(query)))
+    ndp_party.addSummary(summary.summarizer(fancy_scraper.get_ndp_info(query)))
+    green_party.addSummary(summary.summarizer(fancy_scraper.get_greenparty_info(query)))
+    ppc_party.addSummary(summary.summarizer(fancy_scraper.get_peoplesparty_info(query)))
+    #quebec_party.addSummary(summary.summarizer(fancy_scraper.get_bloc_quebecois_info(query)))
+
     response = {
-        "liberal": liberal_party.responseformat,
-        "conservative": conservative_party.responseformat,
-        "ndp": ndp_party.responseformat,
-        "ppc": ppc_party.responseformat,
-        "green": green_party.responseformat,
-        "quebec": quebec_party.responseformat
+        "liberal": liberal_party.formatResponse(),
+        "conservative": conservative_party.formatResponse(),
+        "ndp": ndp_party.formatResponse(),
+        "ppc": ppc_party.formatResponse(),
+        "green": green_party.formatResponse(),
+        #"quebec": quebec_party.formatResponse()
     }
-
-
 
     return jsonify(response), 200
 
