@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import urllib
+import time
 from time import sleep
 import tika
 tika.initVM()
