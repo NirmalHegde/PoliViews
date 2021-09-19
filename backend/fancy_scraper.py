@@ -220,26 +220,11 @@ def check_page_greenparty(url, query, keys, result):
 # Input: Search query string (ie: 'pandemic')
 # Return: Array of strings, each string is an entire paragraph that contains relevant keyword
 def get_bloc_quebecois_info(query):
-    raw = parser.from_file('blocqc-Plateforme-2021-planche.pdf')['content'].strip() # Read from PDF file
-    raw = raw[raw.index('Une campagne électorale') : raw.index('dans les plus brefs délais.')+28]
 
     keys = get_synonyms(query)
     result = []
     
-    splitted = []
-    
-    for i in range(0, 13):
-        splitted.append(raw[5000*i : min(len(raw), 5000*(i+1))])
-    
-    #print(splitted[0])
-    translated = ''
-    
-    for s in splitted:
-        t = itrans(s, to_lang="en")
-        #print('.')
-        translated += t
-    
-    #print(translated)
+    translated = Path('bloc-quebec.txt').read_text()
     
     splat = translated.split("\n\n") # split into paragraphs
     
