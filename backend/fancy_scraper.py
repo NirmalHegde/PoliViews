@@ -57,11 +57,11 @@ def get_conservative_info(query):
         if sp in query or (keys is not None and sp in keys):
             check_page_conservative(url+sp+'/', query, keys, result)
         if len(result) > 0:
-            return result
+            break
     
     for sp in sub_pages: # loop through sub-pages
         check_page_conservative(url+sp+'/', query, keys, result)
-        if len(result) > 2: # once we have enough results no need to continue
+        if len(result) > 3: # once we have enough results no need to continue
             break
         if time.time() - start > 10:
             break
@@ -82,7 +82,7 @@ def check_page_conservative(url, query, keys, result):
                 if k in p.lower():
                     result.append(p)
                     break
-        if len(result) > 2: # once we have enough results no need to continue
+        if len(result) > 3: # once we have enough results no need to continue
             break
 
 # Scraper for ndp.ca
@@ -101,11 +101,11 @@ def get_ndp_info(query):
         if sp in query or (keys is not None and sp in keys):
             check_page_ndp(url+sp, query, keys, result)
         if len(result) > 0:
-            return result
+            break
     
     for sp in sub_pages: # loop through sub-pages
         check_page_ndp(url+sp, query, keys, result)
-        if len(result) > 2: # once we have enough results no need to continue
+        if len(result) > 3: # once we have enough results no need to continue
             break
         if time.time() - start > 10:
             break
@@ -127,7 +127,7 @@ def check_page_ndp(url, query, keys, result):
                     if k in p.lower():
                         result.append(p)
                         break
-        if len(result) > 2: # once we have enough results no need to continue
+        if len(result) > 3: # once we have enough results no need to continue
             break
 
 # Scraper for peoplespartyofcanada.ca
@@ -146,11 +146,11 @@ def get_peoplesparty_info(query):
         if sp in query or (keys is not None and sp in keys):
             check_page_peoplesparty(url+sp, query, keys, result)
         if len(result) > 0:
-            return result
+            break
     
     for sp in sub_pages: # loop through sub-pages
         check_page_peoplesparty(url+sp, query, keys, result)
-        if len(result) > 2: # once we have enough results no need to continue
+        if len(result) > 3: # once we have enough results no need to continue
             break
         if time.time() - start > 10:
             break
@@ -170,7 +170,7 @@ def check_page_peoplesparty(url, query, keys, result):
                 if k in p.lower():
                     result.append(p)
                     break
-        if len(result) > 2: # once we have enough results no need to continue
+        if len(result) > 3: # once we have enough results no need to continue
             break
 
 # Scraper for greenparty.ca
@@ -189,11 +189,11 @@ def get_greenparty_info(query):
         if sp in query or (keys is not None and sp in keys):
             check_page_greenparty(url+sp, query, keys, result)
         if len(result) > 0:
-            return result
+            break
     
     for sp in sub_pages: # loop through sub-pages
         check_page_greenparty(url+sp, query, keys, result)
-        if len(result) > 2: # once we have enough results no need to continue
+        if len(result) > 3: # once we have enough results no need to continue
             break
         if time.time() - start > 10:
             break
