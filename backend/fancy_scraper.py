@@ -50,7 +50,7 @@ def get_conservative_info(query):
     result = []
     
     for sp in sub_pages: # first check via page titles
-        if sp in query or sp in keys:
+        if sp in query or (keys is not None and sp in keys):
             check_page_conservative(url+sp+'/', query, keys, result)
         if len(result) > 0:
             return result
@@ -87,7 +87,7 @@ def get_ndp_info(query):
     result = []
     
     for sp in sub_pages: # first check via page titles
-        if sp in query or sp in keys:
+        if sp in query or (keys is not None and sp in keys):
             check_page_ndp(url+sp, query, keys, result)
         if len(result) > 0:
             return result
@@ -127,7 +127,7 @@ def get_peoplesparty_info(query):
     result = []
     
     for sp in sub_pages: # first check via page titles
-        if sp in query or sp in keys:
+        if sp in query or (keys is not None and sp in keys):
             check_page_peoplesparty(url+sp, query, keys, result)
         if len(result) > 0:
             return result
@@ -165,7 +165,7 @@ def get_greenparty_info(query):
     result = []
     
     for sp in sub_pages: # first check via page titles
-        if sp in query or sp in keys:
+        if sp in query or (keys is not None and sp in keys):
             check_page_greenparty(url+sp, query, keys, result)
         if len(result) > 0:
             return result
@@ -267,7 +267,7 @@ def get_synonyms(s):
     words[12] = ['ndp','democrat','singh','mulcair','layton']
     words[13] = ['pig','cow','chicken','sheep','goat','livestock','meat','steak','pork','animal']
     words[14] = ['medicine','medication','health care','doctor','hospital']
-    
+    words[15] = ['education','school','teacher','teaching','tuition','college','university','student']
     # if a keyword appears in the querry, return that keyword group
     for row in words:
         for i in words[row]:
