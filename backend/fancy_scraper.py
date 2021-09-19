@@ -12,6 +12,7 @@ tika.initVM()
 from tika import parser
 from itranslate import itranslate as itrans
 from googlesearch import search
+from pathlib import Path
 
 # Scraper for liberal.ca
 # Input: Search query string (ie: 'climate change')
