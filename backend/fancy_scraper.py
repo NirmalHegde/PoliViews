@@ -232,6 +232,20 @@ def get_bloc_quebecois_info(query):
             break
     return result
 
+# Input: query and party as strings
+# Return: Array of arrays, each array looks like this [url, title, image_url]
+def get_related_articles(query, party):
+    result = []
+    urls = list(search(party + ' ' + query, tld="co.in", num=3, stop=3, pause=2))
+
+    for u in urls:
+        page = requests.get(u)
+        soup = BeautifulSoup(page.text, 'html.parser')
+        title = soup.find_all('title')[0].decode_contents().strip()
+        image = u[:u.index('/', 10)] + soup.find_all('img')[0].get('src')
+        result.append([u, title, image])
+    return result
+
 # Input: String with one or multiple keywords
 # Return: Array of strings, each string a single keyword relevant to input
 def get_synonyms(s):
@@ -242,7 +256,7 @@ def get_synonyms(s):
     words[1] = ['housing','home','house','family']
     words[2] = ['economy','jobs','work','busines','finance','financial']
     words[3] = ['equal','diversity','diverse','equity','lgbtq']
-    words[4] = ['climate','pollution','nature','environment','climate-action','climate-change','secure-the-environment','emission','carbon','polluter']
+    words[4] = ['climate','pollution','nature','environment','climate-action','climate-change','secure-the-environment','emission','carbon','polluter','green-future']
     words[5] = ['indigenous','reconciliation','colonialism']
     words[6] = ['justice','police','policing','policy','safe','safety']
     words[7] = ['fairness','growth','fiscal']
