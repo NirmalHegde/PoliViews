@@ -248,10 +248,12 @@ def get_bloc_quebecois_info(query):
 def get_related_articles(query, party):
     search_query = party + ' party canada ' + query
     result = []
-    urls = list(search(search_query, tld="com", num=3, stop=3, pause=2))
+    urls = list(search(search_query, tld="com", num=5, stop=5, pause=2))
 
     for u in urls:
-        print(u)
+        #print(u)
+        if '.pdf' in u:
+            continue
         page = requests.get(u)
         soup = BeautifulSoup(page.text, 'html.parser')
         title = soup.find_all('title')
@@ -263,6 +265,8 @@ def get_related_articles(query, party):
         else:
             image = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Maple_Leaf.svg/600px-Maple_Leaf.svg.png'
         result.append([u, title, image])
+        if len(result) == 3:
+            break
     return result
 
 # Input: String with one or multiple keywords
