@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Input, IconButton, Heading, Grid, GridItem } from "@chakra-ui/react";
 import { SearchIcon, CloseIcon } from "@chakra-ui/icons";
+import logo from "./logo192.png";
 
 import styles from "./InputBoxStyles";
 
 const InputBox = ({ retrieveInfo, show }) => {
+  const { logoStyle, logoContainer } = styles;
   const [value, setValue] = useState("");
   const [transition, setTransition] = useState("start");
 
@@ -35,6 +37,13 @@ const InputBox = ({ retrieveInfo, show }) => {
         gap={1}
       >
         <GridItem colSpan={5}>
+          <div style={logoContainer}>
+            <img style={logoStyle} src={logo} alt="logo" />
+            &nbsp;
+            <Heading as="h1" size="sm" color="gray.600">
+              PoliViews
+            </Heading>
+          </div >
           <Heading as="h1" size="lg" color="#2D3748">
             What do Canadian political parties think about...
           </Heading>
@@ -73,7 +82,6 @@ const InputBox = ({ retrieveInfo, show }) => {
           />
         </GridItem>
       </Grid>
-      <br />
     </div>
   );
 };

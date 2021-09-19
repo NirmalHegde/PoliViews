@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
+import axios from "axios";
 import {
   Avatar,
   Box,
+  CircularProgress,
   Button,
   Tooltip,
   Stack,
@@ -20,12 +22,14 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
+import DrawerCard from "./drawerCard/DrawerCard";
 import styles from "./PartyCardStyles.js";
 
 const INIT_TEXT = "Start by searching a hot topic for the 2021 election!";
 
 const PartyCard = ({
   cards,
+  short,
   name,
   leader,
   color,
@@ -38,20 +42,38 @@ const PartyCard = ({
 }) => {
   const { center, descriptionText } = styles;
 
+  const [transition, setTransition] = useState("start");
+  const [loading, setLoading] = useState(false);
+  const [links, setLinks] = useState([]);
+  const btnRef = useRef();
+  const { onOpen, isOpen, onClose } = useDisclosure();
+
   useEffect(() => {
     if (cards === true) {
       setTimeout(() => {
         setTransition("end");
       }, 500);
     }
-  }, [cards])
+  }, [cards]);
 
-  const [transition, setTransition] = useState("start");
-  const btnRef = useRef();
-  const { onOpen, isOpen, onClose } = useDisclosure();
-
-  const handleDrawerOpen = () => {
+  const handleDrawerOpen = async () => {
+    setLoading(true);
     onOpen();
+
+    const response = await axios
+      .get(
+        `https://poliviews-api.herokuapp.com/api/related-articles?query=${search}&party=${short}`
+      )
+      .then((res) => {
+        return res.data[short];
+      })
+      .catch((err) => {
+        console.log(err);
+        return null;
+      });
+
+    setLinks(response);
+    setLoading(false);
   };
 
   return (
@@ -59,7 +81,7 @@ const PartyCard = ({
       {cards && (
         <Box
           bg="#FFFFFF"
-          maxH="38vh"
+          maxH="37vh"
           minW="sm"
           p={4}
           borderRadius="lg"
@@ -143,7 +165,23 @@ const PartyCard = ({
               </GridItem>
             </Grid>
           </DrawerHeader>
-          <DrawerBody></DrawerBody>
+          <DrawerBody>
+            {loading && (
+              <div style={center}>
+                <CircularProgress isIndeterminate color="green.300" />
+              </div>
+            )}
+            {!loading &&
+              links &&
+              links.map((link) => (
+                <DrawerCard
+                  badge={link.sentiment}
+                  title={link.title}
+                  link={link.link}
+                />
+              ))}
+            {!loading && !links && <Text>No articles found...</Text>}
+          </DrawerBody>
         </DrawerContent>
       </Drawer>
     </div>

@@ -7,7 +7,15 @@ const InputBoxStyles = {
     transform: "translate(-100%, -50%)" /* 4 */,
   },
   end: {
-    transition: "1s"
+    transition: "1s",
+  },
+  logoStyle: {
+    width: "auto",
+    height: "5vh",
+  },
+  logoContainer: {
+    display: "flex",
+    alignItems: "center",
   },
 };
 

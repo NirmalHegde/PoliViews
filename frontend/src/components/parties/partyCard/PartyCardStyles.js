@@ -2,10 +2,11 @@ const partyCardStyles = {
   center: {
     display: "flex",
     alignItems: "center",
+    height: "100"
   },
   descriptionText: {
     overflowY : "auto",
-    maxHeight: "14vh"
+    maxHeight: "12vh"
   },
   start: {
     opacity: "0",
