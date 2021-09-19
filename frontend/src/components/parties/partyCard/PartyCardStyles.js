@@ -5,7 +5,7 @@ const partyCardStyles = {
   },
   descriptionText: {
     overflowY : "auto",
-    height: "14vh"
+    maxHeight: "14vh"
   },
 };
 
