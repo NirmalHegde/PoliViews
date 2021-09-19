@@ -57,8 +57,8 @@ def relatedArticles():
     
     for article in articles:
         links.append(article[0])
-        pictures.append(article[1])
-        titles.append(article[2])
+        titles.append(article[1])
+        pictures.append(article[2])
 
     for link in links:
         # Get summary of article
