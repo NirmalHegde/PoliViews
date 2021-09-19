@@ -27,7 +27,7 @@ def get_liberal_info(query):
         b = soup.select('.accordion > li:nth-child('+str(i)+') > div > div > div > div > div')[0].find_all('p')
         
         for p in b: # loop through paragraphs
-            p = p.decode_contents().strip()
+            p = p.get_text()
             
             if query in p.lower(): # try search query in paragraph
                 result.append(p)
@@ -65,7 +65,7 @@ def check_page_conservative(url, query, keys, result):
     b = soup.select('body > main')[0].find_all('p')
 
     for p in b: # loop through paragraphs
-        p = p.decode_contents().strip()
+        p = p.get_text()
         if query in p.lower(): # try search query in paragraph
             result.append(p)
         elif keys is not None:
@@ -103,7 +103,7 @@ def check_page_ndp(url, query, keys, result):
     b = soup.select('.page--content-cached')[0].find_all('p')
 
     for p in b: # loop through paragraphs
-        p = p.decode_contents().strip()
+        p = p.get_text()
         if '<p>' not in p:
             if query in p.lower(): # try search query in paragraph
                 result.append(p)
@@ -142,7 +142,7 @@ def check_page_peoplesparty(url, query, keys, result):
     b = soup.select('#intro > div > div > div.col-md-8.platform')[0].find_all('p')
 
     for p in b: # loop through paragraphs
-        p = p.decode_contents().strip()
+        p = p.get_text()
         if query in p.lower(): # try search query in paragraph
             result.append(p)
         elif keys is not None:
@@ -255,13 +255,13 @@ def get_synonyms(s):
     words[0] = ['covid','pandemic','corona','virus','vaccine']
     words[1] = ['housing','home','house','family']
     words[2] = ['economy','jobs','work','busines','finance','financial','tax']
-    words[3] = ['equal','diversity','diverse','equity','lgbtq']
+    words[3] = ['equal','diversity','diverse','equity']
     words[4] = ['climate','pollution','nature','environment','climate-action','climate-change','secure-the-environment','emission','carbon','polluter','green-future','pipeline']
     words[5] = ['indigenous','reconciliation','colonialism']
     words[6] = ['justice','police','policing','policy','safe','safety']
     words[7] = ['fairness','growth','fiscal']
     words[8] = ['accountability','transparency','conflict of interest']
-    words[9] = ['mental health','suicide']
+    words[9] = ['mental health','suicide','euthanasia']
     words[10] = ['liberal','trudeau','martin','chrétien','chretien']
     words[11] = ['conservative','harper','o\'tool',]
     words[12] = ['ndp','democrat','singh','mulcair','layton']
@@ -269,6 +269,8 @@ def get_synonyms(s):
     words[14] = ['medicine','medication','health care','doctor','hospital']
     words[15] = ['education','school','teacher','teaching','tuition','college','university','student']
     words[16] = ['abortion','pregnancy','pregnant','fetus','embryo','birth']
+    words[17] = ['lgbt','gay','marriage','gender','transgender']
+    words[18] = ['death penalty','capital punishment','death sentence']
     
     # if a keyword appears in the querry, return that keyword group
     for row in words:
