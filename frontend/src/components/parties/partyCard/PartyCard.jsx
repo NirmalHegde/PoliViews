@@ -21,21 +21,32 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 import styles from "./PartyCardStyles.js";
 
-const PartyCard = ({ name, color, theme, picture, result, search }) => {
-  const { center } = styles;
+const INIT_TEXT = "Start by searching a hot topic for the 2021 election!";
+
+const PartyCard = ({
+  name,
+  color,
+  endColor,
+  theme,
+  picture,
+  result,
+  search,
+  show,
+}) => {
+  const { center, descriptionText } = styles;
 
   const { onOpen, isOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
-  const handleDrawerOpen = () => {  
+  const handleDrawerOpen = () => {
     onOpen();
-  }
+  };
 
   return (
     <div>
       <Box
         bg="#FFFFFF"
-        height="100%"
+        maxH="38vh"
         minW="sm"
         p={4}
         borderRadius="lg"
@@ -61,25 +72,29 @@ const PartyCard = ({ name, color, theme, picture, result, search }) => {
             </Heading>
           </GridItem>
           <GridItem colSpan={5}>
-            {!result && (
+            {!show && (
               <Stack>
-                <Skeleton height="2rem" />
-                <Skeleton height="2rem" />
-                <Skeleton height="2rem" />
+                {[...Array(6)].map((e, i) => (
+                  <Skeleton key={i} endColor={endColor} height="1rem" />
+                ))}
               </Stack>
             )}
-            {result && (
+            {show && (
               <Stack>
-                <Text color="#696E78">{result}</Text>
-                <Button
-                  ref={btnRef}
-                  onClick={() => handleDrawerOpen()}
-                  rightIcon={<ArrowForwardIcon />}
-                  colorScheme={theme}
-                  variant="ghost"
-                >
-                  See similar articles
-                </Button>
+                <Text color="#696E78" style={descriptionText}>
+                  {result ? result : INIT_TEXT}
+                </Text>
+                {result && (
+                  <Button
+                    ref={btnRef}
+                    onClick={() => handleDrawerOpen()}
+                    rightIcon={<ArrowForwardIcon />}
+                    colorScheme={theme}
+                    variant="ghost"
+                  >
+                    See similar articles
+                  </Button>
+                )}
               </Stack>
             )}
           </GridItem>
@@ -105,8 +120,7 @@ const PartyCard = ({ name, color, theme, picture, result, search }) => {
               </GridItem>
             </Grid>
           </DrawerHeader>
-          <DrawerBody>
-          </DrawerBody>
+          <DrawerBody></DrawerBody>
         </DrawerContent>
       </Drawer>
     </div>

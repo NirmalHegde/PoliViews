@@ -10,17 +10,29 @@ function App() {
 
   const [results, setResults] = useState();
   const [search, setSearch] = useState();
-  const apiCall = (search) => {
+  const [show, setShow] = useState(true);
+
+  const apiCall = async (search) => {
     // use axios to get results
     // pass responses into parties
-    setResults(["Hello", "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "Hello", "Hello", "Hello", "Hello"]);
+    setShow(false);
+    const response = await axios
+      .get(`https://poliviews-api.herokuapp.com/api/search?query=${search}`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    setResults(["Hello", "Hellonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "Hello", "Hello", "Hello", "Hello"]);
     setSearch(search);
+    setShow(true);
   };
 
   return (
     <div style={root}>
       <InputBox retrieveInfo={apiCall} />
-      <Parties results={results} search={search} />
+      <Parties results={results} search={search} show={show} />
     </div>
   );
 }

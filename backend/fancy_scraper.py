@@ -198,9 +198,26 @@ def get_bloc_quebecois_info(query):
     keys = get_synonyms(query)
     result = []
     
-    splat = raw.split("\n\n") # split into paragraphs
+    splitted = []
+    
+    for i in range(0, 13):
+        splitted.append(raw[5000*i : min(len(raw), 5000*(i+1))])
+    
+    #print(splitted[0])
+    translated = ''
+    
+    for s in splitted:
+        t = itrans(s, to_lang="en")
+        #print('.')
+        translated += t
+    
+    #print(translated)
+    
+    splat = translated.split("\n\n") # split into paragraphs
+    
     for p in splat:
-        p = itrans(p, to_lang="en")
+        #p = itrans(p, to_lang="en")
+        #print(p)
         if query in p.lower(): # try search query in paragraph
             result.append(p)
         elif keys is not None:
@@ -210,6 +227,7 @@ def get_bloc_quebecois_info(query):
                     break
         if len(result) > 3: # once we have enough results no need to continue
             break
+    return result
 
 # Input: String with one or multiple keywords
 # Return: Array of strings, each string a single keyword relevant to input
@@ -243,6 +261,7 @@ def get_synonyms(s):
 # Return: Name of party (ie: Input='Trudeau' --> Return='liberal')
 def get_party(s):
     s.lower()
+    words = {}
     words[0] = ['liberal','trudeau','justin','libéral']
     words[1] = ['conservative','o\'tool','erin']
     words[2] = ['new democratic party','singh','jagmeet','ndp','democratic','démocratique','democratique']

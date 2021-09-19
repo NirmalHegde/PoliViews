@@ -7,7 +7,7 @@ const InputBox = ({ retrieveInfo }) => {
 
   const handleSearch = () => {
     //search handler
-    if (value.trim() !== "" || value !== null) {
+    if (value.trim() !== "" && value !== null) {
       retrieveInfo(value);
     }
   }
@@ -15,8 +15,6 @@ const InputBox = ({ retrieveInfo }) => {
   const handleSearchChange = (e) => {
     if (e.key === "Enter") {
       handleSearch();
-    } else {
-      setValue(e.target.value);
     }
   }
 
@@ -35,7 +33,8 @@ const InputBox = ({ retrieveInfo }) => {
         <GridItem colSpan={3}>
           <Input
             value={value}
-            onChange={(e) => handleSearchChange(e)}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyPress={(e) => handleSearchChange(e)}
             placeholder='Input topic here (ex: "the environment")'
             borderRadius="200"
             size="lg"
