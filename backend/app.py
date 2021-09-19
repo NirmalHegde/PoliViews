@@ -69,12 +69,14 @@ def relatedArticles():
         pictures.append(article[2])
 
     for link in links:
-        # Get summary of article
-        s = summary.summarizer_url(link)
-        # Get sentiment analysis from summary or article
-        sentiment = sentiment_analysis(s)
-        # Add sentiment to array
-        sentiments.append(sentiment)
+        if (len(link.strip())):
+            # Link exists:
+            # Get summary of article
+            s = summary.summarizer_url(link)
+            # Get sentiment analysis from summary or article
+            sentiment = sentiment_analysis(s)
+            # Add sentiment to array
+            sentiments.append(sentiment)
 
     user_party = Party(party)
     user_party.addRelatedLink(links, sentiments, titles, pictures)
