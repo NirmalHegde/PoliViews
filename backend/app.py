@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, session
+import requests
 from flask_cors import CORS
 # from werkzeug.datastructures import Headers
 from PartyClass import Party
@@ -54,7 +55,8 @@ def search():
 def relatedArticles():
 
     party = request.args['party']
-    query = session.get('query')
+    query = request.args['query']
+    #query = session.get('query')
 
     articles = fancy_scraper.get_related_articles(query, party)
     
