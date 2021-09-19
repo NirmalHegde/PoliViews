@@ -40,7 +40,7 @@ const PartyCard = ({
   search,
   show,
 }) => {
-  const { center, descriptionText } = styles;
+  const { center, centerProgress, descriptionText } = styles;
 
   const [transition, setTransition] = useState("start");
   const [loading, setLoading] = useState(false);
@@ -167,7 +167,7 @@ const PartyCard = ({
           </DrawerHeader>
           <DrawerBody>
             {loading && (
-              <div style={center}>
+              <div style={centerProgress}>
                 <CircularProgress isIndeterminate color="green.300" />
               </div>
             )}

@@ -2,7 +2,13 @@ const partyCardStyles = {
   center: {
     display: "flex",
     alignItems: "center",
-    height: "100"
+    height: "100%"
+  },
+  centerProgress: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%"
   },
   descriptionText: {
     overflowY : "auto",
