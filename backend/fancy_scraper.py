@@ -202,7 +202,7 @@ def get_greenparty_info(query):
 def check_page_greenparty(url, query, keys, result):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
-    b = soup.select('#document-content > div.region.region-content').find_all('p')
+    b = soup.select('#document-content > div.region.region-content')[0].find_all('p')
 
     for p in b: # loop through paragraphs
         p = p.get_text()
