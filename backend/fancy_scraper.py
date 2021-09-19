@@ -261,7 +261,7 @@ def get_synonyms(s):
 # Return: Name of party (ie: Input='Trudeau' --> Return='liberal')
 def get_party(s):
     s.lower()
-    words = []
+    words = {}
     words[0] = ['liberal','trudeau','justin','libéral']
     words[1] = ['conservative','o\'tool','erin']
     words[2] = ['new democratic party','singh','jagmeet','ndp','democratic','démocratique','democratique']
