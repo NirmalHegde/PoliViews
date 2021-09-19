@@ -11,11 +11,13 @@ function App() {
   const [results, setResults] = useState();
   const [search, setSearch] = useState();
   const [show, setShow] = useState(true);
+  const [cards, setCards] = useState(false);
 
   const apiCall = async (search) => {
     // use axios to get results
     // pass responses into parties
     setShow(false);
+    setCards(true);
     const response = await axios
       .get(`https://poliviews-api.herokuapp.com/api/search?query=${search}`)
       .then((res) => {
@@ -31,8 +33,8 @@ function App() {
 
   return (
     <div style={root}>
-      <InputBox retrieveInfo={apiCall} />
-      <Parties results={results} search={search} show={show} />
+      <InputBox show={show} retrieveInfo={apiCall} />
+      <Parties cards={cards} results={results} search={search} show={show} />
     </div>
   );
 }

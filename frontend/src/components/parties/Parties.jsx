@@ -6,6 +6,7 @@ import PartyCard from "./partyCard/PartyCard";
 const PARTY_INFO = [
   {
     name: "Liberal Party",
+    leader: "Justin Trudeau",
     color: "#BC0817",
     endColor: "#FFDDE1",
     theme: "red",
@@ -14,6 +15,7 @@ const PARTY_INFO = [
   },
   {
     name: "Conservative Party",
+    leader: "Erin O'Toole",
     color: "#0C499C",
     endColor: "#DDE6FF",
     theme: "blue",
@@ -22,6 +24,7 @@ const PARTY_INFO = [
   },
   {
     name: "New Democratic Party",
+    leader: "Jagmeet Singh",
     color: "#FA5D26",
     endColor: "#FFEADD",
     theme: "orange",
@@ -30,6 +33,7 @@ const PARTY_INFO = [
   },
   {
     name: "Bloc Québécois Party",
+    leader: "Yves-François Blanchet",
     color: "#0E8DAA",
     endColor: "#DDF5FF",
     theme: "cyan",
@@ -38,6 +42,7 @@ const PARTY_INFO = [
   },
   {
     name: "Green Party",
+    leader: "Annamie Paul",
     color: "#338C29",
     endColor: "#C8E5C7",
     theme: "green",
@@ -46,6 +51,7 @@ const PARTY_INFO = [
   },
   {
     name: "People's Party of Canada",
+    leader: "Maxime Bernier",
     color: "#4A3389",
     endColor: "#EBDDFF",
     theme: "purple",
@@ -54,15 +60,17 @@ const PARTY_INFO = [
   },
 ];
 
-const Parties = ({ results, search, show }) => {
+const Parties = ({ cards, results, search, show }) => {
   return (
     <div>
       <SimpleGrid columns={3} spacing={5}>
         {PARTY_INFO.map((party, index) => (
           <PartyCard
+            cards={cards}
             key={party.name}
             result={results ? results[index] : null}
             name={party.name}
+            leader={party.leader}
             color={party.color}
             endColor={party.endColor}
             theme={party.theme}

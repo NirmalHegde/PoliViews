@@ -3,7 +3,9 @@ const appStyles = {
         padding: "2%",
         paddingTop: "1%",
         backgroundColor: "#fcf7f7",
-        height: "100vh"
+        height: "100vh",
+        width: "100vw",
+        overflow: "hidden"
     }
 }
 

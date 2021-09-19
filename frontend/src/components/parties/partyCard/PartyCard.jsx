@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   Avatar,
   Box,
   Button,
+  Tooltip,
   Stack,
   Skeleton,
   Heading,
@@ -24,7 +25,9 @@ import styles from "./PartyCardStyles.js";
 const INIT_TEXT = "Start by searching a hot topic for the 2021 election!";
 
 const PartyCard = ({
+  cards,
   name,
+  leader,
   color,
   endColor,
   theme,
@@ -35,8 +38,17 @@ const PartyCard = ({
 }) => {
   const { center, descriptionText } = styles;
 
-  const { onOpen, isOpen, onClose } = useDisclosure();
+  useEffect(() => {
+    if (cards === true) {
+      setTimeout(() => {
+        setTransition("end");
+      }, 500);
+    }
+  }, [cards])
+
+  const [transition, setTransition] = useState("start");
   const btnRef = useRef();
+  const { onOpen, isOpen, onClose } = useDisclosure();
 
   const handleDrawerOpen = () => {
     onOpen();
@@ -44,62 +56,73 @@ const PartyCard = ({
 
   return (
     <div>
-      <Box
-        bg="#FFFFFF"
-        maxH="38vh"
-        minW="sm"
-        p={4}
-        borderRadius="lg"
-        boxShadow="base"
-      >
-        <Grid
-          templateRows="repeat(2, 0.3fr)"
-          templateColumns="repeat(5, 1fr)"
-          gap={4}
+      {cards && (
+        <Box
+          bg="#FFFFFF"
+          maxH="38vh"
+          minW="sm"
+          p={4}
+          borderRadius="lg"
+          boxShadow="base"
+          style={styles[transition]}
         >
-          <GridItem colSpan={1} style={center}>
-            <Avatar
-              p={1}
-              backgroundColor={color}
-              name={name}
-              src={picture}
-              size="xl"
-            />
-          </GridItem>
-          <GridItem colSpan={4} style={center}>
-            <Heading as="h1" size="lg" color="#2D3748">
-              {name}
-            </Heading>
-          </GridItem>
-          <GridItem colSpan={5}>
-            {!show && (
-              <Stack>
-                {[...Array(6)].map((e, i) => (
-                  <Skeleton key={i} endColor={endColor} height="1rem" />
-                ))}
-              </Stack>
-            )}
-            {show && (
-              <Stack>
-                <Text color="#696E78" style={descriptionText}>
-                  {result ? result : INIT_TEXT}
-                </Text>
-                {result && (
-                  <Button
-                    ref={btnRef}
-                    onClick={() => handleDrawerOpen()}
-                    rightIcon={<ArrowForwardIcon />}
-                    colorScheme={theme}
-                    variant="ghost"
-                  >
-                    See similar articles
-                  </Button>
-                )}
-              </Stack>
-            )}
-          </GridItem>
-        </Grid>
-      </Box>
+          <Grid
+            templateRows="repeat(2, 0.3fr)"
+            templateColumns="repeat(5, 1fr)"
+            gap={4}
+          >
+            <GridItem colSpan={1} style={center}>
+              <Tooltip
+                hasArrow
+                placement="top"
+                bg={color}
+                label={leader}
+                aria-label="A tooltip"
+              >
+                <Avatar
+                  p={1}
+                  backgroundColor={color}
+                  name={name}
+                  src={picture}
+                  size="xl"
+                />
+              </Tooltip>
+            </GridItem>
+            <GridItem colSpan={4} style={center}>
+              <Heading as="h1" size="lg" color="#2D3748">
+                {name}
+              </Heading>
+            </GridItem>
+            <GridItem colSpan={5}>
+              {!show && (
+                <Stack>
+                  {[...Array(6)].map((e, i) => (
+                    <Skeleton key={i} endColor={endColor} height="1rem" />
+                  ))}
+                </Stack>
+              )}
+              {show && (
+                <Stack>
+                  <Text color="#696E78" style={descriptionText}>
+                    {result ? result : INIT_TEXT}
+                  </Text>
+                  {result && (
+                    <Button
+                      ref={btnRef}
+                      onClick={() => handleDrawerOpen()}
+                      rightIcon={<ArrowForwardIcon />}
+                      colorScheme={theme}
+                      variant="ghost"
+                    >
+                      See similar articles
+                    </Button>
+                  )}
+                </Stack>
+              )}
+            </GridItem>
+          </Grid>
+        </Box>
+      )}
 
       <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />

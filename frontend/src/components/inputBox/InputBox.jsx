@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, IconButton, Heading, Grid, GridItem } from "@chakra-ui/react";
 import { SearchIcon, CloseIcon } from "@chakra-ui/icons";
 
-const InputBox = ({ retrieveInfo }) => {
+import styles from "./InputBoxStyles";
+
+const InputBox = ({ retrieveInfo, show }) => {
   const [value, setValue] = useState("");
+  const [transition, setTransition] = useState("start");
+
+  useEffect(() => {
+    if (show === false) {
+      setTransition("end");
+    }
+  }, [show])
 
   const handleSearch = () => {
     //search handler
@@ -19,7 +28,7 @@ const InputBox = ({ retrieveInfo }) => {
   }
 
   return (
-    <div>
+    <div style={styles[transition]}>
       <Grid
         templateRows="repeat(2, 1fr)"
         templateColumns="repeat(5, 1fr)"
