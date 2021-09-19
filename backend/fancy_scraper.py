@@ -252,7 +252,7 @@ def get_related_articles(query, party):
 
     for u in urls:
         print(u)
-        if '.pdf' in u or 'twitter' in u or 'facebook' in u or 'wikipedia':
+        if '.pdf' in u or 'twitter' in u or 'facebook' in u or 'wikipedia' in u:
             pass
 
         else:
