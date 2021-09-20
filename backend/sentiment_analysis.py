@@ -4,7 +4,7 @@ import requests
 def sentiment_analysis(summary):
     base_url = 'https://htn2021-elections.cognitiveservices.azure.com'
     headers = {'Content-Type': 'application/json',
-               'Accept': 'application/json', 'Ocp-Apim-Subscription-Key': 'd6756d3adf554c65bbfd506903d326a6'}
+               'Accept': 'application/json', 'Ocp-Apim-Subscription-Key': 'API-KEY'}
     sentiment_analysis_endpoint = '/text/analytics/v3.1/sentiment'
 
     request_body_template = {

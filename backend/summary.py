@@ -21,7 +21,7 @@ def summarizer(array_of_paragraphs, query):
     headers = {
         'accept': "application/json",
         'x-rapidapi-host': "meaningcloud-summarization-v1.p.rapidapi.com",
-        'x-rapidapi-key': "6e37838737mshea161d89e531defp15e789jsn3caa01b3d0e6"
+        'x-rapidapi-key': "API-KEY"
     }
 
     r = requests.get(url, headers=headers, params=request_body)
@@ -31,6 +31,7 @@ def summarizer(array_of_paragraphs, query):
 
 
 def summarizer_url(article_url):
+
     url = "https://meaningcloud-summarization-v1.p.rapidapi.com/summarization-1.0"
 
     request_body = {
@@ -41,7 +42,7 @@ def summarizer_url(article_url):
     headers = {
         'accept': "application/json",
         'x-rapidapi-host': "meaningcloud-summarization-v1.p.rapidapi.com",
-        'x-rapidapi-key': "6e37838737mshea161d89e531defp15e789jsn3caa01b3d0e6"
+        'x-rapidapi-key': "API-KEY"
     }
 
     r = requests.get(url, headers=headers, params=request_body)
